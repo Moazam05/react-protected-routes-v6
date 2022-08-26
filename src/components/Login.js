@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Context Provider
 import { useAuthContext } from '../context/AuthProvider';
+// React Toastify
+import { toast } from 'react-toastify';
 
 const Login = () => {
   // Context
   const { setAuth } = useAuthContext();
   const navigate = useNavigate();
-
   // States
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  // Local Storage
+  const userCheck = JSON.parse(localStorage.getItem('currentUser'));
 
   // Form Submit
   const handleSubmit = async (e) => {
@@ -38,6 +41,7 @@ const Login = () => {
         .then((response) => response.json())
         .catch((error) => console.log(error));
       localStorage.setItem('currentUser', JSON.stringify(result));
+      toast.success('Login Successfully');
       window.location.href = '/linkpage';
       // console.log('[[[[[[[[[[[[[', result);
       setAuth(result);
@@ -89,9 +93,14 @@ const Login = () => {
                   </button>
 
                   <button
+                    disabled={!userCheck?.userDetails?.userName}
                     type='button'
                     className='btn btn-success mb-3'
-                    onClick={() => localStorage.removeItem('currentUser')}
+                    onClick={() => {
+                      localStorage.removeItem('currentUser');
+                      toast.error('Logout Successfully');
+                      window.location.reload();
+                    }}
                   >
                     Logout
                   </button>

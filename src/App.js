@@ -15,28 +15,34 @@ import Lounge from './components/Lounge';
 import LinkPage from './components/LinkPage';
 // Private Route Imports
 import RequireAuth from './components/RequireAuth';
+// React Toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<Layout />}>
-        {/* Public Route */}
-        <Route path='login' element={<Login />} />
-        <Route path='linkpage' element={<LinkPage />} />
-        <Route path='unauthorized' element={<Unauthorized />} />
+    <React.Fragment>
+      <ToastContainer autoClose={2000} />
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          {/* Public Route */}
+          <Route path='login' element={<Login />} />
+          <Route path='linkpage' element={<LinkPage />} />
+          <Route path='unauthorized' element={<Unauthorized />} />
 
-        {/* we want to protect these routes */}
-        <Route element={<RequireAuth />}>
-          <Route path='/' element={<Home />} />
-          <Route path='editor' element={<Editor />} />
-          <Route path='admin' element={<Admin />} />
-          <Route path='lounge' element={<Lounge />} />
+          {/* we want to protect these routes */}
+          <Route element={<RequireAuth />}>
+            <Route path='/' element={<Home />} />
+            <Route path='editor' element={<Editor />} />
+            <Route path='admin' element={<Admin />} />
+            <Route path='lounge' element={<Lounge />} />
+          </Route>
+
+          {/* catch all */}
+          <Route path='*' element={<Missing />} />
         </Route>
-
-        {/* catch all */}
-        <Route path='*' element={<Missing />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </React.Fragment>
   );
 };
 

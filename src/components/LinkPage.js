@@ -9,14 +9,19 @@ import '../assets/styles/LinkPage.css';
 
 const LinkPage = () => {
   const name = JSON.parse(localStorage.getItem('currentUser'));
+  const userName = name?.userDetails?.userName;
 
   return (
     <div>
       <div className='container'>
         <h2 className='text-center mb-3 mt-5'>
-          Welcome{' '}
-          <span className='text-capitalize'>{name?.userDetails?.userName}</span>
+          Welcome <span className='text-capitalize'>{userName}</span>
         </h2>
+        <h6 className='text-center mb-3 mt-2'>
+          <span className='text-capitalize'>
+            {!userName && 'Please Login to see Protected Routes details'}
+          </span>
+        </h6>
         <h4 className='text-center'>Links Ready to check</h4>
         <div className='my-5'>
           <div className='row'>
