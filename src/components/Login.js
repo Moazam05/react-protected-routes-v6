@@ -1,15 +1,19 @@
+// React Imports
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+// Context Provider
 import { useAuthContext } from '../context/AuthProvider';
 
 const Login = () => {
   // Context
   const { setAuth } = useAuthContext();
+  const navigate = useNavigate();
 
   // States
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  // Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,6 +38,7 @@ const Login = () => {
         .then((response) => response.json())
         .catch((error) => console.log(error));
       localStorage.setItem('currentUser', JSON.stringify(result));
+      window.location.href = '/linkpage';
       // console.log('[[[[[[[[[[[[[', result);
       setAuth(result);
     } catch (error) {
@@ -81,6 +86,22 @@ const Login = () => {
                 <div className='d-flex justify-content-between'>
                   <button type='submit' className='btn btn-primary mb-3'>
                     Login
+                  </button>
+
+                  <button
+                    type='button'
+                    className='btn btn-success mb-3'
+                    onClick={() => localStorage.removeItem('currentUser')}
+                  >
+                    Logout
+                  </button>
+
+                  <button
+                    type='button'
+                    className='btn btn-danger mb-3'
+                    onClick={() => navigate('/linkpage')}
+                  >
+                    All Links
                   </button>
                 </div>
               </form>

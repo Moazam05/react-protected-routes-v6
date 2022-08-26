@@ -1,7 +1,9 @@
+// React Imports
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+// CSS Imports
 import './App.css';
-
+// Custom Imports
 import Login from './components/Login';
 import Home from './components/Home';
 import Layout from './components/Layout';
@@ -11,6 +13,8 @@ import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
 import Lounge from './components/Lounge';
 import LinkPage from './components/LinkPage';
+// Private Route Imports
+import RequireAuth from './components/RequireAuth';
 
 const App = () => {
   return (
@@ -22,10 +26,12 @@ const App = () => {
         <Route path='unauthorized' element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route path='/' element={<Home />} />
-        <Route path='editor' element={<Editor />} />
-        <Route path='admin' element={<Admin />} />
-        <Route path='lounge' element={<Lounge />} />
+        <Route element={<RequireAuth />}>
+          <Route path='/' element={<Home />} />
+          <Route path='editor' element={<Editor />} />
+          <Route path='admin' element={<Admin />} />
+          <Route path='lounge' element={<Lounge />} />
+        </Route>
 
         {/* catch all */}
         <Route path='*' element={<Missing />} />
