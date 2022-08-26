@@ -22,6 +22,7 @@ const Login = () => {
         verified: true,
         blocked: false,
         delay: 20,
+        roles: [2010, 2015],
       });
       var requestOptions = {
         method: 'POST',
