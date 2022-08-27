@@ -6,3 +6,86 @@ a {
 a:hover {
   color: #fff;
 }
+
+/* Home Color Scheme */
+.links a {
+  color: #f0ad4e;
+}
+
+.home-btn {
+  background: #f0ad4e;
+  border: none;
+}
+
+.home-btn:hover {
+  background: #f0ad4e;
+  color: white;
+}
+
+.home-btn:visited {
+  background: #f0ad4e;
+  color: white;
+}
+
+/* Admin Color Scheme */
+.admin a {
+  color: #5bc0de;
+}
+
+.btn-style {
+  background: #5bc0de;
+  border: none;
+  color: white;
+}
+
+.btn-style:hover {
+  background: #5bc0de;
+  color: white;
+}
+
+.btn-style:visited {
+  background: #5bc0de;
+  color: white;
+}
+
+/* Lounge Color Scheme */
+.lounge a {
+  color: #43b853;
+}
+
+.btn-lounge {
+  background: #43b853;
+  border: none;
+  color: white;
+}
+
+.btn-lounge:hover {
+  background: #43b853;
+  color: white;
+}
+
+.btn-lounge:visited {
+  background: #43b853;
+  color: white;
+}
+
+/* Editor Color Scheme */
+.editor a {
+  color: #957bbe;
+}
+
+.btn-editor {
+  background: #957bbe;
+  border: none;
+  color: white;
+}
+
+.btn-editor:hover {
+  background: #957bbe;
+  color: white;
+}
+
+.btn-editor:visited {
+  background: #957bbe;
+  color: white;
+}
