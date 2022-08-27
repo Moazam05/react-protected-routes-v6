@@ -1,6 +1,6 @@
 // React Imports
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 // Context Provider
 import { useAuthContext } from '../context/AuthProvider';
 // React Toastify
@@ -10,9 +10,13 @@ const Login = () => {
   // Context
   const { setAuth } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
   // States
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
   // Local Storage
   const userCheck = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -29,7 +33,8 @@ const Login = () => {
         verified: true,
         blocked: false,
         delay: 20,
-        roles: [2010, 2015],
+        roles: [1996],
+        // roles: [1996, 2022],
       });
       var requestOptions = {
         method: 'POST',
@@ -42,7 +47,8 @@ const Login = () => {
         .catch((error) => console.log(error));
       localStorage.setItem('currentUser', JSON.stringify(result));
       toast.success('Login Successfully');
-      window.location.href = '/linkpage';
+      // window.location.href = '/linkpage';
+      navigate(from, { replace: true });
       // console.log('[[[[[[[[[[[[[', result);
       setAuth(result);
     } catch (error) {

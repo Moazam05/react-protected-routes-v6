@@ -26,15 +26,28 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/* Public Route */}
+
           <Route path='login' element={<Login />} />
           <Route path='linkpage' element={<LinkPage />} />
           <Route path='unauthorized' element={<Unauthorized />} />
 
-          {/* we want to protect these routes */}
-          <Route element={<RequireAuth />}>
+          {/* Protected Routes */}
+
+          {/* Admin */}
+          <Route element={<RequireAuth allowedRoles={[1996]} />}>
             <Route path='/' element={<Home />} />
-            <Route path='editor' element={<Editor />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1996]} />}>
             <Route path='admin' element={<Admin />} />
+          </Route>
+
+          {/* User */}
+          <Route element={<RequireAuth allowedRoles={[2022]} />}>
+            <Route path='editor' element={<Editor />} />
+          </Route>
+
+          {/* Admin and User */}
+          <Route element={<RequireAuth allowedRoles={[1996, 2022]} />}>
             <Route path='lounge' element={<Lounge />} />
           </Route>
 
