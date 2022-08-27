@@ -16,7 +16,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || '/';
 
   // Local Storage
-  const userCheck = JSON.parse(localStorage.getItem('currentUser'));
+  const userCheck = JSON?.parse(localStorage.getItem('currentUser'));
 
   // React Hook Form
   const {
@@ -152,7 +152,7 @@ const Login = () => {
                   </button>
 
                   <button
-                    disabled={!userCheck?.userDetails?.userName}
+                    disabled={userCheck && !userCheck?.userDetails?.userName}
                     type='button'
                     className='btn btn-danger mb-3'
                     onClick={() => {

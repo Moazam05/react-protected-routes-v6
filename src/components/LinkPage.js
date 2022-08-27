@@ -8,7 +8,7 @@ import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 import '../assets/styles/LinkPage.css';
 
 const LinkPage = () => {
-  const name = JSON.parse(localStorage.getItem('currentUser'));
+  const name = JSON?.parse(localStorage.getItem('currentUser'));
   const userName = name?.userDetails?.userName;
 
   return (
