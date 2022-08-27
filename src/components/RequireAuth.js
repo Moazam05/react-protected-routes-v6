@@ -4,7 +4,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom';
 
 const RequireAuth = ({ allowedRoles }) => {
   // Local Storage
-  const auth = JSON.parse(localStorage.getItem('currentUser'));
+  const auth = JSON?.parse(localStorage.getItem('currentUser'));
 
   const location = useLocation();
 
