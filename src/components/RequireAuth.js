@@ -8,9 +8,8 @@ const RequireAuth = ({ allowedRoles }) => {
 
   const location = useLocation();
 
-  return auth?.userDetails?.roles.find((role) =>
-    allowedRoles?.includes(role)
-  ) ? (
+  return auth &&
+    auth?.userDetails?.roles.find((role) => allowedRoles?.includes(role)) ? (
     <Outlet />
   ) : auth?.userDetails ? (
     <Navigate to='/unauthorized' />
