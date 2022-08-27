@@ -6,11 +6,7 @@ const RequireAuth = ({ allowedRoles }) => {
   // Local Storage
   const auth = JSON.parse(localStorage.getItem('currentUser'));
 
-  console.log('auth', auth?.userDetails?.roles);
-
   const location = useLocation();
-
-  console.log(allowedRoles);
 
   return auth?.userDetails?.roles.find((role) =>
     allowedRoles?.includes(role)

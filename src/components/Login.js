@@ -1,10 +1,12 @@
 // React Imports
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 // Context Provider
 import { useAuthContext } from '../context/AuthProvider';
 // React Toastify
 import { toast } from 'react-toastify';
+// React Hook Form
+import { useForm } from 'react-hook-form';
 
 const Login = () => {
   // Context
@@ -13,23 +15,39 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  // States
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-
   // Local Storage
   const userCheck = JSON.parse(localStorage.getItem('currentUser'));
 
-  // Form Submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // React Hook Form
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      name: '',
+      password: '',
+    },
+  });
 
+  // Reset States
+  const handleReset = () => {
+    reset({
+      name: '',
+      password: '',
+    });
+  };
+
+  // Form Submit
+  const onSubmit = async (data) => {
     try {
       var myHeaders = new Headers();
       myHeaders.append('Content-Type', 'application/json');
       var raw = JSON.stringify({
-        userName: name,
-        password: password,
+        userName: data?.name,
+        password: data?.password,
         verified: true,
         blocked: false,
         delay: 20,
@@ -47,9 +65,11 @@ const Login = () => {
         .catch((error) => console.log(error));
       localStorage.setItem('currentUser', JSON.stringify(result));
       toast.success('Login Successfully');
+      if (result) {
+        handleReset();
+      }
       // window.location.href = '/linkpage';
       navigate(from, { replace: true });
-      // console.log('[[[[[[[[[[[[[', result);
       setAuth(result);
     } catch (error) {
       console.log(error.response);
@@ -64,37 +84,68 @@ const Login = () => {
           <div className='col-md-8'>
             <div className='my-5 card p-4'>
               <h3 className='text-center mb-4'>Login with Fake API</h3>
-              <form onSubmit={handleSubmit}>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputName1' className='form-label'>
-                    UserName
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className='mb-3 mt-1'>
+                  <label htmlFor='user-name' className='form-label'>
+                    User Name
                   </label>
                   <input
-                    required
+                    {...register('name', {
+                      required: true,
+                      maxLength: 15,
+                    })}
                     type='text'
+                    id='user-name'
                     className='form-control'
-                    id='exampleInputName1'
-                    aria-describedby='nameHelp'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    placeholder='john doe'
                   />
+                  {errors?.name?.type === 'required' && (
+                    <div className='text-danger font-small-2 mt-1'>
+                      Name is required
+                    </div>
+                  )}
+                  {errors?.name?.type === 'maxLength' && (
+                    <div className='text-danger font-small-2 mt-1'>
+                      Name cannot greater than 15 characters
+                    </div>
+                  )}
                 </div>
                 <div className='mb-3'>
-                  <label htmlFor='exampleInputPassword1' className='form-label'>
+                  <label className='form-label' htmlFor='employee-password'>
                     Password
                   </label>
+
                   <input
-                    required
+                    {...register('password', {
+                      required: true,
+                      maxLength: 6,
+                    })}
                     type='password'
+                    id='employee-password'
                     className='form-control'
-                    id='exampleInputPassword1'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder='********'
                   />
+                  {errors?.password?.type === 'required' && (
+                    <div className='text-danger font-small-2 mt-1'>
+                      Password is required
+                    </div>
+                  )}
+                  {errors?.password?.type === 'maxLength' && (
+                    <div className='text-danger font-small-2 mt-1'>
+                      password cannot less than 6 characters
+                    </div>
+                  )}
                 </div>
 
-                <div className='d-flex justify-content-between'>
-                  <button type='submit' className='btn btn-primary mb-3'>
+                <div className='d-flex justify-content-between mt-5'>
+                  <button
+                    disabled={isSubmitting}
+                    type='submit'
+                    className='btn btn-primary mb-3'
+                  >
+                    {isSubmitting && (
+                      <span className='spinner-border spinner-border-sm mr-1'></span>
+                    )}{' '}
                     Login
                   </button>
 
