@@ -45,7 +45,9 @@ const Admin = () => {
                 onClick={() => {
                   localStorage.removeItem('currentUser');
                   toast.error('Logout Successfully');
-                  window.location.reload();
+                  setTimeout(() => {
+                    window.location.href = '/login';
+                  }, 1000);
                 }}
               >
                 Logout

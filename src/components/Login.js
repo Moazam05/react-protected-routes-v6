@@ -10,13 +10,10 @@ import { useForm } from 'react-hook-form';
 
 const Login = () => {
   // Context
-  const { setAuth } = useAuthContext();
+  const { setAuth, auth } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
-
-  // Local Storage
-  const userCheck = JSON?.parse(localStorage.getItem('currentUser'));
 
   // React Hook Form
   const {
@@ -69,10 +66,10 @@ const Login = () => {
         handleReset();
       }
       setAuth(result);
+      navigate(from, { replace: true });
       // window.location.href = '/linkpage';
-      setTimeout(() => {
-        navigate(from, { replace: true });
-      }, 1000);
+      // setTimeout(() => {
+      // }, 1000);
     } catch (error) {
       console.log(error.response);
     }
@@ -152,13 +149,15 @@ const Login = () => {
                   </button>
 
                   <button
-                    disabled={userCheck && !userCheck?.userDetails?.userName}
+                    disabled={!auth?.userDetails?.userName}
                     type='button'
                     className='btn btn-danger mb-3'
                     onClick={() => {
                       localStorage.removeItem('currentUser');
                       toast.error('Logout Successfully');
-                      window.location.reload();
+                      setTimeout(() => {
+                        window.location.href = '/login';
+                      }, 1000);
                     }}
                   >
                     Logout

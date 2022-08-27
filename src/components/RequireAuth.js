@@ -1,10 +1,15 @@
 // React Imports
 import React from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
+// Context Provider
+import { useAuthContext } from '../context/AuthProvider';
 
 const RequireAuth = ({ allowedRoles }) => {
+  // Context
+  const { auth } = useAuthContext();
+
   // Local Storage
-  const auth = JSON?.parse(localStorage.getItem('currentUser'));
+  // const auth = JSON?.parse(localStorage.getItem('currentUser'));
 
   const location = useLocation();
 

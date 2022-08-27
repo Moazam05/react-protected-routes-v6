@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 // Import Icons
 import { MdOutlinePublic } from 'react-icons/md';
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
+// Context Provider
+import { useAuthContext } from '../context/AuthProvider';
 // Import CSS
 import '../assets/styles/LinkPage.css';
 
 const LinkPage = () => {
-  const name = JSON?.parse(localStorage.getItem('currentUser'));
-  const userName = name?.userDetails?.userName;
+  // Context
+  const { auth } = useAuthContext();
 
   return (
     <div className='link-wrapper'>
@@ -19,11 +21,15 @@ const LinkPage = () => {
           <div className='col-md-8'>
             <div className='my-5 card p-4'>
               <h2 className='text-center mb-4'>
-                Welcome <span className='text-capitalize'>{userName}</span>
+                Welcome{' '}
+                <span className='text-capitalize'>
+                  {auth?.userDetails?.userName}
+                </span>
               </h2>
               <h6 className='text-center mb-4'>
                 <span className='text-capitalize'>
-                  {!userName && 'Please Login to see Protected Routes details'}
+                  {!auth?.userDetails?.userName &&
+                    'Please Login to see Protected Routes details'}
                 </span>
               </h6>
               <div className='d-flex justify-content-center gap-5 mt-2 mobile-linkpage'>
