@@ -68,9 +68,11 @@ const Login = () => {
       if (result) {
         handleReset();
       }
-      // window.location.href = '/linkpage';
-      navigate(from, { replace: true });
       setAuth(result);
+      // window.location.href = '/linkpage';
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1000);
     } catch (error) {
       console.log(error.response);
     }
