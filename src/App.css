@@ -1,3 +1,7 @@
+body {
+  background: #e0e0e0;
+}
+
 a {
   color: #fff;
   font-size: 20px;
@@ -87,5 +91,22 @@ a:hover {
 
 .btn-editor:visited {
   background: #957bbe;
+  color: white;
+}
+
+/* Missing Color Scheme */
+.btn-404 {
+  background: #cc9f8b;
+  border: none;
+  color: white;
+}
+
+.btn-404:hover {
+  background: #cc9f8b;
+  color: white;
+}
+
+.btn-404:visited {
+  background: #cc9f8b;
   color: white;
 }

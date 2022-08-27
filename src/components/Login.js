@@ -62,7 +62,7 @@ const Login = () => {
         <div className='row'>
           <div className='col-md-2'></div>
           <div className='col-md-8'>
-            <div className='my-5'>
+            <div className='my-5 card p-4'>
               <h3 className='text-center mb-4'>Login with Fake API</h3>
               <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
@@ -101,7 +101,7 @@ const Login = () => {
                   <button
                     disabled={!userCheck?.userDetails?.userName}
                     type='button'
-                    className='btn btn-success mb-3'
+                    className='btn btn-danger mb-3'
                     onClick={() => {
                       localStorage.removeItem('currentUser');
                       toast.error('Logout Successfully');
@@ -113,7 +113,7 @@ const Login = () => {
 
                   <button
                     type='button'
-                    className='btn btn-danger mb-3'
+                    className='btn btn-success mb-3'
                     onClick={() => navigate('/linkpage')}
                   >
                     All Links
