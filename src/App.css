@@ -1,5 +1,6 @@
 body {
   background: #e0e0e0;
+  box-sizing: border-box;
 }
 
 a {
@@ -109,4 +110,20 @@ a:hover {
 .btn-404:visited {
   background: #cc9f8b;
   color: white;
+}
+
+/* Link Page CSS */
+.link-wrapper .card .card-block {
+  width: 300px;
+}
+
+.link-wrapper .card {
+  height: fit-content;
+}
+
+@media (max-width: 576px) {
+  .link-wrapper .mobile-linkpage {
+    flex-direction: column;
+    gap: unset !important;
+  }
 }

@@ -12,21 +12,21 @@ const LinkPage = () => {
   const userName = name?.userDetails?.userName;
 
   return (
-    <div>
+    <div className='link-wrapper'>
       <div className='container'>
-        <h2 className='text-center mb-3 mt-5'>
-          Welcome <span className='text-capitalize'>{userName}</span>
-        </h2>
-        <h6 className='text-center mb-3 mt-2'>
-          <span className='text-capitalize'>
-            {!userName && 'Please Login to see Protected Routes details'}
-          </span>
-        </h6>
-        <h4 className='text-center'>Links Ready to check</h4>
-        <div className='my-5'>
-          <div className='row'>
-            <div className='d-flex justify-content-center gap-5'>
-              <div className='col-md-4 col-xl-3'>
+        <div className='row'>
+          <div className='col-md-2'></div>
+          <div className='col-md-8'>
+            <div className='my-5 card p-4'>
+              <h2 className='text-center mb-4'>
+                Welcome <span className='text-capitalize'>{userName}</span>
+              </h2>
+              <h6 className='text-center mb-4'>
+                <span className='text-capitalize'>
+                  {!userName && 'Please Login to see Protected Routes details'}
+                </span>
+              </h6>
+              <div className='d-flex justify-content-center gap-5 mt-2 mobile-linkpage'>
                 <div className='card bg-c-blue order-card'>
                   <div className='card-block'>
                     <h6 className='m-b-20 d-flex align-items-center gap-1'>
@@ -37,9 +37,7 @@ const LinkPage = () => {
                     <Link to='/login'>Login</Link>
                   </div>
                 </div>
-              </div>
 
-              <div className='col-md-4 col-xl-3'>
                 <div className='card bg-c-pink order-card'>
                   <div className='card-block'>
                     <h6 className='m-b-20 d-flex align-items-center gap-1'>
@@ -59,6 +57,7 @@ const LinkPage = () => {
               </div>
             </div>
           </div>
+          <div className='col-md-2'></div>
         </div>
       </div>
     </div>
