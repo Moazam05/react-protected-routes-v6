@@ -12,36 +12,53 @@ import Missing from './components/Missing';
 import Unauthorized from './components/Unauthorized';
 import Lounge from './components/Lounge';
 import LinkPage from './components/LinkPage';
+import Layout from './components/Layout';
 // React Toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Protected Routes
-import { ProtectedLayout } from './hooks/ProtectedLayout';
 import { HomeLayout } from './hooks/HomeLayout';
+import RequireAuth from './components/RequireAuth';
 
 const App = () => {
   return (
     <React.Fragment>
       <ToastContainer autoClose={2000} />
       <Routes>
-        {/* Public Routes */}
         <Route element={<HomeLayout />}>
           <Route path='/login' element={<Login />} />
         </Route>
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedLayout />}>
-          <Route path='/' element={<Home />} />
-          <Route path='admin' element={<Admin />} />
-          <Route path='editor' element={<Editor />} />
-          <Route path='lounge' element={<Lounge />} />
-        </Route>
+        <Route path='/' element={<Layout />}>
+          {/* Public Routes */}
+          <Route path='linkpage' element={<LinkPage />} />
+          <Route path='unauthorized' element={<Unauthorized />} />
 
-        {/* 404 Page */}
-        <Route path='*' element={<Missing />} />
-        <Route path='linkpage' element={<LinkPage />} />
-        <Route path='unauthorized' element={<Unauthorized />} />
+          {/* Protected Routes */}
+
+          {/* Admin */}
+          <Route element={<RequireAuth allowedRoles={[1996]} />}>
+            <Route path='/' element={<Home />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[1996]} />}>
+            <Route path='admin' element={<Admin />} />
+          </Route>
+
+          {/* User */}
+          <Route element={<RequireAuth allowedRoles={[2022]} />}>
+            <Route path='editor' element={<Editor />} />
+          </Route>
+
+          {/* Admin and User */}
+          <Route element={<RequireAuth allowedRoles={[1996, 2022]} />}>
+            <Route path='lounge' element={<Lounge />} />
+          </Route>
+
+          {/* catch all */}
+          <Route path='*' element={<Missing />} />
+        </Route>
       </Routes>
+      ;
     </React.Fragment>
   );
 };
