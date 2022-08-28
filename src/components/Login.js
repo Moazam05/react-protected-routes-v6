@@ -1,19 +1,17 @@
 // React Imports
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-// Context Provider
-import { useAuthContext } from '../context/AuthProvider';
-// React Toastify
-import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 // React Hook Form
 import { useForm } from 'react-hook-form';
+// React Toastify
+import { toast } from 'react-toastify';
+// Context Provider
+import { useAuth } from '../context/useAuth';
 
 const Login = () => {
   // Context
-  const { setAuth, auth } = useAuthContext();
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   // React Hook Form
   const {
@@ -51,6 +49,7 @@ const Login = () => {
         roles: [1996],
         // roles: [1996, 2022],
       });
+
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -60,16 +59,11 @@ const Login = () => {
       const result = await fetch('/login', requestOptions)
         .then((response) => response.json())
         .catch((error) => console.log(error));
-      localStorage.setItem('currentUser', JSON.stringify(result));
       toast.success('Login Successfully');
+      login(result);
       if (result) {
         handleReset();
       }
-      setAuth(result);
-      navigate(from, { replace: true });
-      // window.location.href = '/linkpage';
-      // setTimeout(() => {
-      // }, 1000);
     } catch (error) {
       console.log(error.response);
     }
@@ -146,21 +140,6 @@ const Login = () => {
                       <span className='spinner-border spinner-border-sm mr-1'></span>
                     )}{' '}
                     Login
-                  </button>
-
-                  <button
-                    disabled={!auth?.userDetails?.userName}
-                    type='button'
-                    className='btn btn-danger mb-3'
-                    onClick={() => {
-                      localStorage.removeItem('currentUser');
-                      toast.error('Logout Successfully');
-                      setTimeout(() => {
-                        window.location.href = '/login';
-                      }, 1000);
-                    }}
-                  >
-                    Logout
                   </button>
 
                   <button

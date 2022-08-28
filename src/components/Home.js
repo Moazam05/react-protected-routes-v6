@@ -3,8 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // Icon Imports
 import { AiOutlineHome } from 'react-icons/ai';
-// React Toastify
-import { toast } from 'react-toastify';
+// Context Provider
+import { useAuth } from '../context/useAuth';
 
 const iconStyle = {
   width: '2.5rem',
@@ -19,6 +19,9 @@ const iconStyle = {
 };
 
 const Home = () => {
+  // Context
+  const { logout } = useAuth();
+
   return (
     <div>
       <div className='container'>
@@ -42,14 +45,7 @@ const Home = () => {
               <button
                 type='button'
                 className='btn home-btn text-white mb-3'
-                style={{ color: 'orange' }}
-                onClick={() => {
-                  localStorage.removeItem('currentUser');
-                  toast.error('Logout Successfully');
-                  setTimeout(() => {
-                    window.location.href = '/login';
-                  }, 1000);
-                }}
+                onClick={logout}
               >
                 Logout
               </button>

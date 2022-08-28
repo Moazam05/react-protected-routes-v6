@@ -1,21 +1,21 @@
+// React Imports
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
+// CSS Imports
 import './index.css';
+// Custom Imports
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from './context/AuthProvider';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// Context Provider
+import { AuthProvider } from './context/useAuth';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path='/*' element={<App />} />
-        </Routes>
+        <App />
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

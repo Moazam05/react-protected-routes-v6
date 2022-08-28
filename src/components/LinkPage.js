@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { MdOutlinePublic } from 'react-icons/md';
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
 // Context Provider
-import { useAuthContext } from '../context/AuthProvider';
+import { useAuth } from '../context/useAuth';
 // Import CSS
 import '../assets/styles/LinkPage.css';
 
 const LinkPage = () => {
   // Context
-  const { auth } = useAuthContext();
+  const { user } = useAuth();
 
   return (
     <div className='link-wrapper'>
@@ -23,12 +23,12 @@ const LinkPage = () => {
               <h2 className='text-center mb-4'>
                 Welcome{' '}
                 <span className='text-capitalize'>
-                  {auth?.userDetails?.userName}
+                  {user?.userDetails?.userName}
                 </span>
               </h2>
               <h6 className='text-center mb-4'>
                 <span className='text-capitalize'>
-                  {!auth?.userDetails?.userName &&
+                  {user === null &&
                     'Please Login to see Protected Routes details'}
                 </span>
               </h6>
